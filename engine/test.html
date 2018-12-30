@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    
+    <style>
+      html {
+        background-color: #EEEEEE;
+      }
+      
+      canvas {
+        background-color: #FFFFFF;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="gameCanvas" width="400" height="400" ></canvas>
+    
+    <script src="./engine.js" ></script>
+    <script>
+      GraphicsManager.setCanvas(document.getElementById("gameCanvas"));
+      
+      StateManager.setState({
+        x: 0,
+        y: 0,
+        xv: 5,
+        yv: 0,
+      
+        update: function() {
+          this.x += this.xv;
+          this.y += this.yv;
+          
+          if(this.x < 0 || this.x + 100 > 400 || this.y < 0 || this.y + 100 > 400) {
+            this.x -= this.xv;
+            this.y -= this.yv;
+            
+            let temp = this.yv;
+            this.yv = this.xv;
+            this.xv = -temp;
+          }
+        },
+        
+        draw: function(ctx) {
+          ctx.clearRect(0, 0, 400, 400);
+        
+          ctx.drawImage(ImageManager.images["./test.png"], this.x, this.y);
+        }
+      });
+        
+      ImageManager.allMediaLoaded = function() {
+        Engine.start();
+      }
+    
+      ImageManager.registerImages(["./test.png"]);
+      ImageManager.loadImages();
+    </script>
+  </body>
+</html>
