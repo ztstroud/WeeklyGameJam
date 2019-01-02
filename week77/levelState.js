@@ -4,12 +4,20 @@ var levelState = {
   ringIndex: 0,
     
   update: function() {
+    this.ringIndex = (this.ringIndex + 1) % this.ringFrames.length;
   },
   
   draw: function(ctx) {
     ctx.clearRect(0, 0, GraphicsManager.canvas.width, GraphicsManager.canvas.height);
     ctx.drawImage(ImageManager.images[this.ringFrames[this.ringIndex]], 235, 35);
     
-    this.ringIndex = (this.ringIndex + 1) % this.ringFrames.length;
+    ctx.fillStyle = "#FF0000";
+    this.drawCircle(ctx, GraphicsManager.canvas.width / 2, GraphicsManager.canvas.height / 2, 70);
+  },
+  
+  drawCircle: function(ctx, x, y, r) {
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, 2 * Math.PI);
+    ctx.fill();
   }
 }
