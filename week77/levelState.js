@@ -62,45 +62,50 @@ var levelState = {
       this.entities.push(entity)
     }
     
-    if(this.entities.length > 0 && this.entities[0].type === "player" && !this.entities[0].dead) {
-      let player = this.entities[0];
-      
-      if(InputManager.getKey(37)) {
-        player.x -= 3;
-      }
-      
-      if(InputManager.getKey(39)) {
-        player.x += 3;
-      }
-      
-      if(InputManager.getKey(38)) {
-        player.y -= 3;
-      }
-      
-      if(InputManager.getKey(40)) {
-        player.y += 3;
-      }
-      
-      
-      let playerRadius = player.radius * (player.z / 255.0)
-      for(let index = 1; index < this.entities.length; index++) {
-        let entity = this.entities[index];
-        let entityRadius = entity.radius * (entity.z / 255.);
+    if(this.entities.length > 0 && this.entities[0].type === "player") {
+      if(!this.entities[0].dead) {
+        let player = this.entities[0];
         
-        let dx = player.x - entity.x;
-        let dy = player.y - entity.y;
+        if(InputManager.getKey(37)) {
+          player.x -= 3;
+        }
         
-        let dist = Math.sqrt(dx * dx + dy * dy);
-        if(dist < playerRadius + entityRadius) {
-          if(entity.type === "coin") {
-            this.score += 1;
-            
-            entity.remove = true;
-          } else if(entity.type === "block") {
-            player.dead = true;
+        if(InputManager.getKey(39)) {
+          player.x += 3;
+        }
+        
+        if(InputManager.getKey(38)) {
+          player.y -= 3;
+        }
+        
+        if(InputManager.getKey(40)) {
+          player.y += 3;
+        }
+        
+        
+        let playerRadius = player.radius * (player.z / 255.0)
+        for(let index = 1; index < this.entities.length; index++) {
+          let entity = this.entities[index];
+          let entityRadius = entity.radius * (entity.z / 255.);
+          
+          let dx = player.x - entity.x;
+          let dy = player.y - entity.y;
+          
+          let dist = Math.sqrt(dx * dx + dy * dy);
+          if(dist < playerRadius + entityRadius) {
+            if(entity.type === "coin") {
+              this.score += 1;
+              
+              entity.remove = true;
+            } else if(entity.type === "block") {
+              player.dead = true;
+            }
           }
         }
       }
+    } else {
+      deathState.startOver(this.score);
+      StateManager.setState(deathState);
     }
     
     for(var index in this.entities) {
@@ -146,6 +151,18 @@ var levelState = {
         removeIndex += 1;
       }
     }
+  },
+  
+  startOver: function() {
+    this.entities = [{x: 350, y:200, z: 100, radius: 50, type:"player", color:"#00FF00", remove: false, dead: false}];
+  
+    this.blockSpawnTimer = 100;
+    this.blockSpawnTime = 100;
+    
+    this.coinSpawnTimer = 80;
+    this.coinSpawnTime = 80;
+    
+    this.score = 0;
   },
   
   draw: function(ctx) {
