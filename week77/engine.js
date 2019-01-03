@@ -45,9 +45,24 @@ var InputManager = {
     bind: function(element) {
         InputManager.owner = element;
         
+        document.body.addEventListener("keydown", InputManager.keyDown);
+        document.body.addEventListener("keyup", InputManager.keyUp);
+        
         element.addEventListener("mouseenter", InputManager.setMousePosition);
         element.addEventListener("mousemove", InputManager.setMousePosition);
         element.addEventListener("mouseleave", InputManager.mouseLeave);
+    },
+    
+    keyDown: function(event) {
+        InputManager.keys[event.keyCode] = true;
+    },
+    
+    keyUp: function(event) {
+        InputManager.keys[event.keyCode] = false;
+    },
+    
+    getKey: function(keyCode) {
+        return InputManager.keys.hasOwnProperty(keyCode) && InputManager.keys[keyCode];
     },
     
     setMousePosition: function(event) {
