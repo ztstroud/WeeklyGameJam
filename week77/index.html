@@ -37,13 +37,14 @@
     <canvas id="gameCanvas" width="920" height="520" ></canvas>
     
     <script src="./engine.js" ></script>
+    <script src="./menuState.js" ></script>
     <script src="./levelState.js" ></script>
     
     <script>
       GraphicsManager.setCanvas(document.getElementById("gameCanvas"));
       InputManager.bind(document.getElementById("gameCanvas"));
       
-      StateManager.setState(levelState);
+      StateManager.setState(menuState);
       
       ImageManager.allMediaLoaded = function() {
         Engine.start();
