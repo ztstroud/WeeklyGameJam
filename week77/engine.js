@@ -32,6 +32,38 @@ var ImageManager = {
   }
 }
 
+var InputManager = {
+    keys: {},
+    
+    mouseX: 0,
+    mouseY: 0,
+    
+    mousePresent: false,
+    
+    owner: undefined,
+    
+    bind: function(element) {
+        InputManager.owner = element;
+        
+        element.addEventListener("mouseenter", InputManager.setMousePosition);
+        element.addEventListener("mousemove", InputManager.setMousePosition);
+        element.addEventListener("mouseleave", InputManager.mouseLeave);
+    },
+    
+    setMousePosition: function(event) {
+        let rect = InputManager.owner.getBoundingClientRect();
+        
+        InputManager.mouseX = event.clientX - rect.left;
+        InputManager.mouseY = event.clientY - rect.top;
+        
+        InputManager.mousePresent = true;
+    },
+    
+    mouseLeave: function(event) {
+        InputManager.mousePresent = false;
+    }
+}
+
 var GraphicsManager = {
   canvas: undefined,
   ctx: undefined,

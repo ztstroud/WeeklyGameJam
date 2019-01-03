@@ -11,8 +11,21 @@ var levelState = {
     ctx.clearRect(0, 0, GraphicsManager.canvas.width, GraphicsManager.canvas.height);
     ctx.drawImage(ImageManager.images[this.ringFrames[this.ringIndex]], 235, 35);
     
-    ctx.fillStyle = "#FF0000";
-    this.drawCircle(ctx, GraphicsManager.canvas.width / 2, GraphicsManager.canvas.height / 2, 70);
+    if(InputManager.mousePresent) {
+        let dx = GraphicsManager.canvas.width / 2 - InputManager.mouseX;
+        let dy = GraphicsManager.canvas.height / 2 - InputManager.mouseY;
+        
+        let distance = Math.sqrt(dx * dx + dy * dy);
+        
+        if(distance <= 225 && distance >= 70) {
+            let scale = Math.abs((distance - (70 + 77.5)) / 77.5);
+            scale *= scale * scale;
+            scale = 1.0 - scale * 0.5;
+            
+            ctx.fillStyle = "#FF0000";
+            this.drawCircle(ctx, InputManager.mouseX, InputManager.mouseY, 30 * scale);
+        }
+    }
   },
   
   drawCircle: function(ctx, x, y, r) {
