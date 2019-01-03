@@ -156,7 +156,9 @@ var levelState = {
   },
   
   startOver: function() {
-    this.entities = [{x: 350, y:200, z: 100, radius: 50, type:"player", color:"#00FF00", remove: false, dead: false}];
+    let playerAngle = Math.random() * 2 * Math.PI;
+      
+    this.entities = [{x: GraphicsManager.canvas.width / 2 + Math.cos(playerAngle) * 150, y: GraphicsManager.canvas.height / 2 + Math.sin(playerAngle) * 150, z: 100, radius: 50, type:"player", color:"#00FF00", remove: false, dead: false}];
   
     this.blockSpawnTimer = 100;
     this.blockSpawnTime = 100;

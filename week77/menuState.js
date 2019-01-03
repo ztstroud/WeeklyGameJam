@@ -5,8 +5,10 @@ var menuState = {
     if(this.startDelay > 0) {
       this.startDelay -= 1;
     } else {
-      if(InputManager.getKey(13))
+      if(InputManager.getKey(13)) {
+        levelState.startOver();
         StateManager.setState(levelState);
+      }
     }
   },
   
