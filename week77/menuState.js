@@ -1,5 +1,5 @@
 var menuState = {
-  startDelay: 30,
+  startDelay: 5,
     
   update: function() {
     if(this.startDelay > 0) {
@@ -11,6 +11,8 @@ var menuState = {
   },
   
   draw: function(ctx) {
+    ctx.clearRect(0, 0, GraphicsManager.canvas.width, GraphicsManager.canvas.height);
+      
     ctx.font = "70px Arial";
     ctx.fillStyle = "#FFFFFF";
     ctx.fillText("Torus", (GraphicsManager.canvas.width - ctx.measureText("Torus").width) / 2, 130);

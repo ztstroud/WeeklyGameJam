@@ -53,6 +53,13 @@
     
       ImageManager.registerImages(levelState.ringFrames);
       
+      GraphicsManager.ctx.font = "70px Arial";
+      GraphicsManager.ctx.fillStyle = "#FFFFFF";
+      GraphicsManager.ctx.fillText("Torus", (GraphicsManager.canvas.width - GraphicsManager.ctx.measureText("Torus").width) / 2, 130);
+      
+      GraphicsManager.ctx.font = "35px Arial";
+      GraphicsManager.ctx.fillText("Loading...", (GraphicsManager.canvas.width - GraphicsManager.ctx.measureText("Loading...").width) / 2, 450);
+      
       ImageManager.loadImages();
     </script>
   </body>

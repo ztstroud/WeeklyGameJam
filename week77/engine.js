@@ -55,10 +55,12 @@ var InputManager = {
     
     keyDown: function(event) {
         InputManager.keys[event.keyCode] = true;
+        event.preventDefault();
     },
     
     keyUp: function(event) {
         InputManager.keys[event.keyCode] = false;
+        event.preventDefault();
     },
     
     getKey: function(keyCode) {

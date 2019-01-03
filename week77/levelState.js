@@ -12,9 +12,10 @@ var levelState = {
   coinSpawnTime: 80,
   
   score: 0,
+  torusRate: 1,
     
   update: function() {
-    this.ringIndex = (this.ringIndex + 1) % this.ringFrames.length;
+    this.ringIndex = (this.ringIndex + this.torusRate) % this.ringFrames.length;
     
     if(this.blockSpawnTimer > 0) {
       this.blockSpawnTimer -= 1;
@@ -99,6 +100,7 @@ var levelState = {
               entity.remove = true;
             } else if(entity.type === "block") {
               player.dead = true;
+              this.torusRate = 3;
             }
           }
         }
@@ -120,8 +122,8 @@ var levelState = {
         let vx = dx / distance;
         let vy = dy / distance;
         
-        entity.x += vx * 0.55;
-        entity.y += vy * 0.55;
+        entity.x += vx * 0.55 * this.torusRate;
+        entity.y += vy * 0.55 * this.torusRate;
         
         
         let offset = Math.abs((distance - 70) - 77.5) / 77.5;
@@ -134,7 +136,7 @@ var levelState = {
         if(entity.type === "player")
           entity.dead = true;
          
-        entity.z -= 1;
+        entity.z -= this.torusRate;
         
         if(entity.z < 0)
           entity.z = 0;
@@ -163,6 +165,7 @@ var levelState = {
     this.coinSpawnTime = 80;
     
     this.score = 0;
+    this.torusRate = 1;
   },
   
   draw: function(ctx) {
