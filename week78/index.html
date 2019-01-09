@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    
+    <style>
+      * {
+        box-sizing: border-box;
+        
+        padding: 0;
+        margin: 0;
+      }
+    
+      body {
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        width: 100vw;
+        height: 100vh;
+
+        padding: 0;
+        margin: 0;
+        
+        background-color: #222222;
+      }
+
+      #gameCanvas {
+        display: block;
+
+        background-color: #000000;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="gameCanvas" width="920" height="520" ></canvas>
+    
+    <script src="./engine.js" ></script>
+    
+    <script>
+      GraphicsManager.setCanvas(document.getElementById("gameCanvas"));
+      InputManager.bind(document.getElementById("gameCanvas"));
+      
+      ImageManager.allMediaLoaded = function() {
+        Engine.start();
+        console.log("startup");
+      }
+      
+      ImageManager.loadImages();
+    </script>
+  </body>
+</html>
