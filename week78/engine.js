@@ -13,6 +13,10 @@ var ImageManager = {
   },
   
   loadImages: function() {
+    if(ImageManager.registeredImages.length === 0 && ImageManager.allMediaLoaded !== undefined) {
+      ImageManager.allMediaLoaded();
+    }
+      
     while(ImageManager.registeredImages.length > 0) {
       let imagePath = ImageManager.registeredImages.shift();
       
