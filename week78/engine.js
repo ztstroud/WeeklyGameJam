@@ -94,6 +94,20 @@ var GraphicsManager = {
   setCanvas: function(canvas) {
     GraphicsManager.canvas = canvas;
     GraphicsManager.ctx = canvas.getContext("2d");
+  },
+  
+  clear: function() {
+    if(GraphicsManager.ctx === undefined)
+      return;
+  
+    GraphicsManager.ctx.clearRect(0, 0, GraphicsManager.canvas.width, GraphicsManager.canvas.height);
+  },
+  
+  fillCenteredText: function(text, y) {
+    if(GraphicsManager.ctx === undefined)
+      return;
+  
+    GraphicsManager.ctx.fillText(text, (GraphicsManager.canvas.width - GraphicsManager.ctx.measureText(text).width) / 2, y);
   }
 }
 
