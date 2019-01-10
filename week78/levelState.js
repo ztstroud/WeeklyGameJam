@@ -43,7 +43,7 @@ var levelState = {
       this.energy += 5;
       
       this.updateSlimeMap();
-    } else if(this.levelData[row][column] !== "#" && this.levelData[row][column] !== "@" && this.energy > 0 && this.nextToSlime(column, row)) {
+    } else if(this.levelData[row][column] !== "#" && this.levelData[row][column] !== "@" && this.levelData[row][column] !== "N" && this.levelData[row][column] !== "B" && this.energy > 0 && this.nextToSlime(column, row)) {
       if(this.levelData[row][column] === "G")
         this.win = true;
       if(this.levelData[row][column] === "E")
