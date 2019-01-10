@@ -37,6 +37,7 @@
     <canvas id="gameCanvas" width="920" height="520" ></canvas>
     
     <script src="./engine.js" ></script>
+    <script src="./menuState.js" ></script>
     <script src="./levelData.js" ></script>
     <script src="./levelState.js" ></script>
     
@@ -45,17 +46,18 @@
       InputManager.bind(document.getElementById("gameCanvas"));
       
       ImageManager.allMediaLoaded = function() {
-        levelState.loadLevel(levels[0]);
-        StateManager.setState(levelState);
+        StateManager.setState(menuState);
       
         Engine.start();
       }
       
       GraphicsManager.setFillColor("#FFFFFF");
       GraphicsManager.setFont("50px Arial");
-      GraphicsManager.fillCenteredText("Grow", 80);
+      GraphicsManager.fillCenteredText("Cyto", 80);
       GraphicsManager.setFont("30px Arial");
       GraphicsManager.fillCenteredText("Loading...", GraphicsManager.canvas.height - 50);
+      
+      ImageManager.registerImages(["images/button.png", "images/dark_ground.png", "images/door.png", "images/energy.png", "images/goal.png", "images/grid.png", "images/ground.png", "images/nucleus.png", "images/select.png", "images/slime.png", "images/wall.png"]);
       
       ImageManager.loadImages();
     </script>
