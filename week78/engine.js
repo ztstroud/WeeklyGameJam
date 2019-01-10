@@ -44,19 +44,31 @@ var InputManager = {
     mouseX: 0,
     mouseY: 0,
     
+    mouseDown: false,
+    mouseDownPrevious: false,
+    mousePressed: false,
+    mouseReleased: false,
+    
     mousePresent: false,
     
     owner: undefined,
     
     bind: function(element) {
-        InputManager.owner = element;
+      InputManager.owner = element;
         
-        document.body.addEventListener("keydown", InputManager.keyDown);
-        document.body.addEventListener("keyup", InputManager.keyUp);
+      document.body.addEventListener("keydown", InputManager.keyDown);
+      document.body.addEventListener("keyup", InputManager.keyUp);
         
-        element.addEventListener("mouseenter", InputManager.setMousePosition);
-        element.addEventListener("mousemove", InputManager.setMousePosition);
-        element.addEventListener("mouseleave", InputManager.mouseLeave);
+      element.addEventListener("mouseenter", InputManager.setMousePosition);
+      element.addEventListener("mousemove", InputManager.setMousePosition);
+      element.addEventListener("mouseleave", InputManager.mouseLeave);
+    },
+    
+    tick: function() {
+      InputManager.mousePressed = InputManager.mouseDown && !InputManager.mouseDownPrevious;
+      InputManager.mouseReleased = !InputManager.mouseDown && InputManager.mouseDownPrevious;
+      
+      InputManager.mouseDownPrevious = InputManager.mouseDown;
     },
     
     keyDown: function(event) {
@@ -108,6 +120,20 @@ var GraphicsManager = {
       return;
   
     GraphicsManager.ctx.fillText(text, (GraphicsManager.canvas.width - GraphicsManager.ctx.measureText(text).width) / 2, y);
+  },
+  
+  setFillColor: function(color) {
+    if(GraphicsManager.ctx === undefined)
+      return;
+  
+    GraphicsManager.ctx.fillStyle = color;
+  },
+  
+  setFont: function(font) {
+    if(GraphicsManager.ctx === undefined)
+        return;
+    
+    GraphicsManager.ctx.font = font;
   }
 }
 
@@ -141,6 +167,7 @@ var StateManager = {
 
 var Engine = {
   gameLoop: function() {
+    InputManager.tick();
     StateManager.tick();
     
     requestAnimationFrame(Engine.gameLoop);

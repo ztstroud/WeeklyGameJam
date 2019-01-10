@@ -44,8 +44,13 @@
       
       ImageManager.allMediaLoaded = function() {
         Engine.start();
-        console.log("startup");
       }
+      
+      GraphicsManager.setFillColor("#FFFFFF");
+      GraphicsManager.setFont("50px Arial");
+      GraphicsManager.fillCenteredText("Grow", 80);
+      GraphicsManager.setFont("30px Arial");
+      GraphicsManager.fillCenteredText("Loading...", GraphicsManager.canvas.height - 50);
       
       ImageManager.loadImages();
     </script>
