@@ -117,7 +117,7 @@ var levels = [
       "############################",
     ],
     
-    startingEnergy: 10,
+    startingEnergy: 6,
   
     events: [],
     
@@ -263,7 +263,7 @@ var levels = [
         y: 512,
         color: "#FFFFFF",
         font: "30px Arial",
-        text: "You can get cut in half"
+        text: "You can get cut in half, breaking your connection to the nucleus"
       }  
     ]
   },
