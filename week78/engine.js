@@ -44,8 +44,8 @@ var InputManager = {
     mouseX: 0,
     mouseY: 0,
     
-    mouseDown: false,
-    mouseDownPrevious: false,
+    isMouseDown: false,
+    isMouseDownPrevious: false,
     mousePressed: false,
     mouseReleased: false,
     
@@ -62,13 +62,16 @@ var InputManager = {
       element.addEventListener("mouseenter", InputManager.setMousePosition);
       element.addEventListener("mousemove", InputManager.setMousePosition);
       element.addEventListener("mouseleave", InputManager.mouseLeave);
+      
+      element.addEventListener("mousedown", InputManager.mouseDown);
+      element.addEventListener("mouseup", InputManager.mouseUp);
     },
     
     tick: function() {
-      InputManager.mousePressed = InputManager.mouseDown && !InputManager.mouseDownPrevious;
-      InputManager.mouseReleased = !InputManager.mouseDown && InputManager.mouseDownPrevious;
+      InputManager.mousePressed = InputManager.isMouseDown && !InputManager.isMouseDownPrevious;
+      InputManager.mouseReleased = !InputManager.isMouseDown && InputManager.isMouseDownPrevious;
       
-      InputManager.mouseDownPrevious = InputManager.mouseDown;
+      InputManager.isMouseDownPrevious = InputManager.isMouseDown;
     },
     
     keyDown: function(event) {
@@ -96,6 +99,18 @@ var InputManager = {
     
     mouseLeave: function(event) {
         InputManager.mousePresent = false;
+    },
+    
+    mouseDown: function(event) {
+      if(event.button === 0) {
+        InputManager.isMouseDown = true;
+      }
+    },
+    
+    mouseUp: function(event) {
+      if(event.button === 0) {
+        InputManager.isMouseDown = false;
+      }
     }
 }
 
