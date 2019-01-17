@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    
+    <style>
+      * {
+        box-sizing: border-box;
+        
+        padding: 0;
+        margin: 0;
+      }
+    
+      body {
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        width: 100vw;
+        height: 100vh;
+
+        padding: 0;
+        margin: 0;
+        
+        background-color: #222222;
+      }
+
+      #gameCanvas {
+        display: block;
+
+        background-color: #444444;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="gameCanvas" width="920" height="520" ></canvas>
+    
+    <script src="./engine.js" ></script>
+    <script src="./levelState.js" ></script>
+    <script src="./mainLevel.js" ></script>
+    
+    <script>
+      GraphicsManager.setCanvas(document.getElementById("gameCanvas"));
+      InputManager.bind(document.getElementById("gameCanvas"));
+      
+      MediaManager.allMediaLoaded = function() {
+        levelState.load(mainLevel);
+        StateManager.setState(levelState);
+        Engine.start();
+      }
+      
+      MediaManager.singleMediaLoaded = drawLoadingScreen;
+      
+      function drawLoadingScreen() {
+        GraphicsManager.clear();
+      
+        GraphicsManager.setFillColor("#FFFFFF");
+        GraphicsManager.setFont("50px Arial");
+        GraphicsManager.fillCenteredText("Test", 80);
+        
+        GraphicsManager.setFont("30px Arial");
+        GraphicsManager.fillCenteredText("Loading...", GraphicsManager.canvas.height - 80);
+        
+        GraphicsManager.setFont("20px Arial");
+        GraphicsManager.fillCenteredText(MediaManager.loadedCount + " / " + MediaManager.totalCount, GraphicsManager.canvas.height - 50);
+      }
+      
+      drawLoadingScreen();
+      
+      MediaManager.registerImages(["./images/curtains.png", "./images/ground.png", "./images/props/sun.png", "./images/props/tree.png", "./images/props/bush.png", "./images/sock/player_closed.png", "./images/sock/player_open.png"]);
+      MediaManager.loadRegisteredMedia();
+    </script>
+  </body>
+</html>
